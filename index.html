@@ -1,23 +1,27 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Calculator</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#000000" />
+
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <div class="app">
     <div class="display" id="display">0</div>
 
     <div class="keys">
       <!-- Row 1 -->
-      <button class="btn func backspace" data-k="bs">⌫</button>
+      <button class="btn func" data-k="bs">←</button>
       <button class="btn func" data-k="clear">C</button>
       <button class="btn func" data-k="%">%</button>
       <button class="btn op" data-k="÷">÷</button>
@@ -41,26 +45,20 @@
       <button class="btn op" data-k="+">+</button>
 
       <!-- Row 5 -->
-      <button class="btn digit pm" data-k="±">+/-</button>
+      <button class="btn func" data-k="+/-">+/-</button>
       <button class="btn digit" data-k="0">0</button>
-      <button class="btn digit comma" data-k=",">,</button>
+      <button class="btn digit" data-k=",">,</button>
       <button class="btn op" data-k="=">=</button>
     </div>
   </div>
 
-  <!-- FORCE (AKALC) MENU -->
+  <!-- MENU FORCE / AKALC -->
   <div class="menu" id="menu">
     <div class="menuCard">
-      <input 
-        id="akalcInput" 
-        type="number" 
-        inputmode="numeric" 
-        pattern="[0-9]*" 
-        placeholder="Напиши число здесь 😉"
-      >
+      <input id="akalcInput" type="number" inputmode="numeric" placeholder="Напиши число здесь 😉" />
       <div class="menuBtns">
-        <button class="menuBtn" id="resetAkalc">Сбросить</button>
-        <button class="menuBtn" id="saveAkalc">Сохранить</button>
+        <button class="menuBtn reset" id="resetAkalc">Сбросить</button>
+        <button class="menuBtn save" id="saveAkalc">Сохранить</button>
       </div>
     </div>
   </div>
