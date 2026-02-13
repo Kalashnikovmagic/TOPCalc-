@@ -4,7 +4,6 @@ const akalcInput = document.getElementById("akalcInput");
 const clearBtn = document.querySelector('[data-k="clear"]');
 
 let mode = "normal"; // normal | secretDate | force
-
 let current = "0";
 let operator = null;
 let previous = null;
@@ -50,18 +49,18 @@ document.addEventListener("pointerup", e=>{
 
   // ===== FORCE MODE =====
   if(mode==="force"){
-    if(forceLocked) return;
+    if(forceLocked) return; // после полного ввода ничего не делаем
 
+    // Любой тап, включая Backspace, вводит следующую цифру
     if(forceIndex < forceNumber.length){
       current = (current==="0"?"":current)+forceNumber[forceIndex++];
       update();
     }
 
     if(forceIndex >= forceNumber.length){
-      forceLocked = true;
+      forceLocked = true; // блокируем дальнейшие тапы
     }
 
-    // отменяем стандартное поведение любых кнопок (Backspace включительно)
     e.preventDefault();
     return;
   }
@@ -85,11 +84,12 @@ document.addEventListener("pointerup", e=>{
   if(k==="clear"){
     if(mode==="secretDate" || mode==="force") {
       mode="normal";
+      forceIndex=0;
+      forceLocked=false;
       updateClearButton();
     }
     current="0"; previous=null; operator=null;
     X=null;Y="";fullY="";waitingForY=false;
-    forceIndex=0; forceLocked=false;
     update();
     return;
   }
@@ -185,7 +185,9 @@ document.addEventListener("touchend",()=>active=false);
 
 // ================= FORCE MENU =================
 document.getElementById("saveAkalc").onclick=()=>{
-  forceNumber=akalcInput.value.replace(/\D/g,"");
+  const val = akalcInput.value.replace(/\D/g,"");
+  if(!val) return;
+  forceNumber = val;
   localStorage.setItem("forceNumber",forceNumber);
   forceIndex=0;
   forceLocked=false;
