@@ -26,7 +26,7 @@ html, body {
 }
 
 .display {
-  font-size: 60px;
+  font-size: 72px;  /* увеличено с 60px */
   text-align: right;
   padding: 20px 10px;
   white-space: nowrap;
