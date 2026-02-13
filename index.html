@@ -6,13 +6,17 @@
   <link rel="stylesheet" href="style.css" />
   <title>Calculator</title>
   <style>
-    /* Увеличиваем шрифт и размер SVG внутри кнопок */
+    /* Увеличиваем размер всех символов на кнопках и делаем их одинаковыми */
     .btn {
-      font-size: 32px; /* больше цифры и знаки */
+      font-size: 40px; /* больше, чем раньше */
+      line-height: 1;
     }
+
+    /* Все SVG внутри кнопок одного размера */
     .btn svg {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
+      stroke-width: 1.5; /* чуть тоньше для Backspace, соответствует толщине шрифта цифр */
     }
   </style>
 </head>
@@ -24,7 +28,8 @@
     <div class="keys" id="keys">
       <!-- Row 1 -->
       <button class="btn func backspace" data-k="bs" aria-label="Backspace">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- iOS style backspace icon, увеличенный и с уменьшенной жирностью линии -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 4H7L2 12l5 8h13a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/>
           <line x1="12" y1="9" x2="16" y2="13"/>
           <line x1="16" y1="9" x2="12" y2="13"/>
