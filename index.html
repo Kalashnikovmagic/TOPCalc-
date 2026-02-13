@@ -1,62 +1,69 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  
+  <title>Magic Calculator</title>
 
-<title>Calculator</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#000000" />
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
-
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <div class="app" id="app">
+    <div class="display" id="display">0</div>
 
-<div class="app">
-  <div id="display" class="display">0</div>
+    <div class="keys" id="keys">
+      <!-- Row 1 -->
+      <button class="btn func" data-k="clear">C</button>
+      <button class="btn func" data-k="%">%</button>
+      <button class="btn op" data-k="÷">÷</button>
+      <button class="btn func backspace" data-k="bs">←</button>
 
-  <div class="keys">
-    <button class="btn func" data-k="back">⌫</button>
-    <button class="btn func" data-k="clear">C</button>
-    <button class="btn func" data-k="%">%</button>
-    <button class="btn op" data-k="÷">÷</button>
+      <!-- Row 2 -->
+      <button class="btn digit" data-k="7">7</button>
+      <button class="btn digit" data-k="8">8</button>
+      <button class="btn digit" data-k="9">9</button>
+      <button class="btn op" data-k="×">×</button>
 
-    <button class="btn digit" data-k="7">7</button>
-    <button class="btn digit" data-k="8">8</button>
-    <button class="btn digit" data-k="9">9</button>
-    <button class="btn op" data-k="×">×</button>
+      <!-- Row 3 -->
+      <button class="btn digit" data-k="4">4</button>
+      <button class="btn digit" data-k="5">5</button>
+      <button class="btn digit" data-k="6">6</button>
+      <button class="btn op" data-k="−">−</button>
 
-    <button class="btn digit" data-k="4">4</button>
-    <button class="btn digit" data-k="5">5</button>
-    <button class="btn digit" data-k="6">6</button>
-    <button class="btn op" data-k="−">−</button>
+      <!-- Row 4 -->
+      <button class="btn digit" data-k="1">1</button>
+      <button class="btn digit" data-k="2">2</button>
+      <button class="btn digit" data-k="3">3</button>
+      <button class="btn op" data-k="+">+</button>
 
-    <button class="btn digit" data-k="1">1</button>
-    <button class="btn digit" data-k="2">2</button>
-    <button class="btn digit" data-k="3">3</button>
-    <button class="btn op" data-k="+">+</button>
-
-    <button class="btn digit" data-k="+/-">+/-</button>
-    <button class="btn digit" data-k="0">0</button>
-    <button class="btn digit" data-k=",">,</button>
-    <button class="btn op" data-k="=">=</button>
-  </div>
-</div>
-
-<!-- AKALC MENU -->
-<div id="menu" class="menu">
-  <div class="menuCard">
-    <input id="akalcInput" placeholder="Введите число">
-    <div class="menuBtns">
-      <button id="saveAkalc">Сохранить</button>
-      <button id="resetAkalc">Сбросить</button>
+      <!-- Row 5 -->
+      <button class="btn digit pm" data-k="+/-">+/-</button>
+      <button class="btn digit" data-k="0">0</button>
+      <button class="btn digit comma" data-k=",">,</button>
+      <button class="btn op" data-k="=">=</button>
     </div>
   </div>
-</div>
 
-<script src="app.js"></script>
+  <!-- MENU FORCE -->
+  <div class="menu" id="menu">
+    <div class="menuCard">
+      <input id="akalcInput" inputmode="numeric" pattern="[0-9]*" placeholder="напиши число здесь 😉" />
+      <div class="menuBtns">
+        <button class="menuBtn resetBtn" id="resetForce">Сбросить</button>
+        <button class="menuBtn saveBtn" id="saveForce">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
