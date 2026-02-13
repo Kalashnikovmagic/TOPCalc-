@@ -184,7 +184,10 @@ document.addEventListener("touchmove",e=>{
 document.addEventListener("touchend",()=>active=false);
 
 // ================= FORCE MENU =================
-document.getElementById("saveAkalc").onclick=()=>{
+const saveBtnMenu = document.getElementById("saveAkalc");
+const resetBtnMenu = document.getElementById("resetAkalc");
+
+saveBtnMenu.addEventListener("pointerup", e=>{
   const val = akalcInput.value.replace(/\D/g,"");
   if(!val) return;
   forceNumber = val;
@@ -195,9 +198,16 @@ document.getElementById("saveAkalc").onclick=()=>{
   mode="force";
   menu.style.display="none";
   update();
-};
 
-document.getElementById("resetAkalc").onclick=()=>{
+  saveBtnMenu.classList.add("bounce");
+  saveBtnMenu.addEventListener("animationend", ()=>{
+    saveBtnMenu.classList.remove("bounce");
+  }, { once:true });
+
+  e.preventDefault();
+});
+
+resetBtnMenu.addEventListener("pointerup", e=>{
   mode="normal";
   forceIndex=0;
   forceLocked=false;
@@ -205,12 +215,18 @@ document.getElementById("resetAkalc").onclick=()=>{
   menu.style.display="none";
   update();
   updateClearButton();
-};
+
+  resetBtnMenu.classList.add("bounce");
+  resetBtnMenu.addEventListener("animationend", ()=>{
+    resetBtnMenu.classList.remove("bounce");
+  }, { once:true });
+
+  e.preventDefault();
+});
 
 // ================= BUTTON ANIMATION =================
 document.querySelectorAll(".btn, .menuBtn").forEach(btn=>{
   btn.addEventListener("touchstart", e => e.preventDefault());
-
   btn.addEventListener("pointerup", ()=>{
     btn.classList.add("bounce");
     btn.addEventListener("animationend", ()=>{
