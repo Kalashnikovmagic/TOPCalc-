@@ -22,7 +22,7 @@ html, body {
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
-  padding: 10px 20px 40px 20px; /* увеличен нижний отступ */
+  padding: 10px 20px 70px 20px; /* ещё выше */
 }
 
 .display {
@@ -36,7 +36,7 @@ html, body {
 .keys {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 14px; /* немного больше расстояние */
 }
 
 /* ================= КНОПКИ ================= */
