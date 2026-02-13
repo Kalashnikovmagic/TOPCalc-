@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  
+
   <title>Magic Calculator</title>
 
   <!-- PWA -->
@@ -22,10 +22,16 @@
 
     <div class="keys" id="keys">
       <!-- Row 1 -->
+      <button class="btn func backspace" data-k="bs" aria-label="Backspace">
+        <svg viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24 14h22a10 10 0 0 1 10 10v16a10 10 0 0 1-10 10H24L4 32l20-18z"/>
+          <path d="M36 26l12 12M48 26L36 38"/>
+        </svg>
+      </button>
+
       <button class="btn func" data-k="clear">C</button>
       <button class="btn func" data-k="%">%</button>
       <button class="btn op" data-k="÷">÷</button>
-      <button class="btn func backspace" data-k="bs">←</button>
 
       <!-- Row 2 -->
       <button class="btn digit" data-k="7">7</button>
