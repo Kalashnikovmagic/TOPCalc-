@@ -12,7 +12,7 @@ let waiting = false;
 // SECRET DATE
 let X=null,Y="",fullY="",Z=0,waitingForY=false;
 
-// FORCE
+// FORCE / AKALC
 let akalcNumber = localStorage.getItem("akalc") || "";
 let akalcIndex = 0;
 let akalcLocked = false;
