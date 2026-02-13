@@ -79,15 +79,52 @@ document.addEventListener("touchmove",e=>{ if(!active||e.touches.length!==3)retu
 document.addEventListener("touchend",()=>active=false);
 
 // ================= AKALC MENU =================
-document.getElementById("saveAkalc").onclick=()=>{
-  akalcNumber=akalcInput.value.replace(/\D/g,"");
-  localStorage.setItem("akalc",akalcNumber);
-  akalcIndex=0; akalcLocked=false; current="0"; mode="akalc"; menu.style.display="none"; update(); updateClearButton();
-};
+const saveAkalcBtn = document.getElementById("saveAkalc");
+const resetAkalcBtn = document.getElementById("resetAkalc");
 
-document.getElementById("resetAkalc").onclick=()=>{
-  mode="normal"; akalcIndex=0; akalcLocked=false; current="0"; menu.style.display="none"; update(); updateClearButton();
-};
+saveAkalcBtn.addEventListener("pointerup", e => {
+  e.preventDefault();
+  saveAkalcBtn.classList.add("bounce");
+
+  // сохраняем форсируемое число
+  akalcNumber = akalcInput.value.replace(/\D/g, "");
+  localStorage.setItem("akalc", akalcNumber);
+
+  // переключаемся на режим force
+  akalcIndex = 0;
+  akalcLocked = false;
+  current = "0";
+  mode = "akalc";
+
+  // закрываем меню и обновляем экран
+  menu.style.display = "none";
+  update();
+  updateClearButton();
+
+  saveAkalcBtn.addEventListener("animationend", () => {
+    saveAkalcBtn.classList.remove("bounce");
+  }, { once: true });
+});
+
+resetAkalcBtn.addEventListener("pointerup", e => {
+  e.preventDefault();
+  resetAkalcBtn.classList.add("bounce");
+
+  // возвращаемся в normal
+  mode = "normal";
+  akalcIndex = 0;
+  akalcLocked = false;
+  current = "0";
+
+  // закрываем меню и обновляем экран
+  menu.style.display = "none";
+  update();
+  updateClearButton();
+
+  resetAkalcBtn.addEventListener("animationend", () => {
+    resetAkalcBtn.classList.remove("bounce");
+  }, { once: true });
+});
 
 // ================= BUTTON ANIMATION =================
 document.querySelectorAll(".btn, .menuBtn").forEach(btn=>{
