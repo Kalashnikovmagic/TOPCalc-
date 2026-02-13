@@ -1,7 +1,3 @@
-// Полный рабочий код с режимами Data и Force, кнопками и анимациями
-// Код полностью рабочий, блокировка в Data включается только после полного Y,
-// Force режим через меню, анимация bounce на всех кнопках, zум и скрол заблокированы
-
 const display=document.getElementById("display");
 const menu=document.getElementById("menu");
 const akalcInput=document.getElementById("akalcInput");
@@ -59,7 +55,7 @@ document.addEventListener("pointerup",e=>{
   }
 
   // COMMON HANDLING
-  if(k==="clear"){ mode="normal"; current="0"; previous=null; operator=null; X=null; Y=""; fullY=""; waitingForY=false; update(); updateClearButton(); return; }
+  if(k==="clear"){ mode="normal"; current="0"; previous=null; operator=null; X=null; Y=""; fullY=""; waitingForY=false; forceIndex=0; forceLocked=false; menu.style.display="none"; update(); updateClearButton(); return; }
   if(k==="%"){ if(mode==="normal"){ mode="Data"; current="0"; X=null; fullY=""; Y=""; waitingForY=false; Z=0; update(); updateClearButton(); } return; }
 
   if(!isNaN(k)){ if(waiting){ current=k; waiting=false; } else current=current==="0"?k:current+k; update(); return; }
@@ -86,8 +82,12 @@ document.addEventListener("pointerup",e=>{
 
 // ===== TRIPLE SWIPE FOR FORCE MENU =====
 let startY=null,active=false;
-document.addEventListener("touchstart",e=>{ if(e.touches.length===3){ active=true; startY=[...e.touches].reduce((a,t)=>a+t.clientY,0)/3; }},{passive:true});
-document.addEventListener("touchmove",e=>{ if(!active||e.touches.length!==3)return; const y=[...e.touches].reduce((a,t)=>a+t.clientY,0)/3; if(y-startY>100){ if(mode==="normal") menu.style.display="flex"; active=false; }},{passive:true});
+document.addEventListener("touchstart", e => { if(e.touches.length===3){ active=true; startY=[...e.touches].reduce((a,t)=>a+t.clientY,0)/3; } }, {passive:true});
+document.addEventListener("touchmove", e => { 
+  if(!active||e.touches.length!==3) return; 
+  const y=[...e.touches].reduce((a,t)=>a+t.clientY,0)/3; 
+  if(y-startY>100){ if(mode==="normal") menu.style.display="flex"; active=false; } 
+}, {passive:true});
 document.addEventListener("touchend",()=>active=false);
 
 // ===== FORCE MENU HANDLERS =====
@@ -117,4 +117,13 @@ document.addEventListener("touchend",e=>{ const now=Date.now(); if(now-last<300)
 document.addEventListener("selectstart",e=>e.preventDefault());
 
 // ===== START =====
-update(); updateClearButton();
+mode = "normal";
+current = "0";
+previous = null;
+operator = null;
+waiting = false;
+X = null; Y = ""; fullY = ""; Z = 0; waitingForY = false;
+forceIndex = 0; forceLocked = false;
+menu.style.display="none";
+update();
+updateClearButton();
