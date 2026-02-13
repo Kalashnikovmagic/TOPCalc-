@@ -22,7 +22,11 @@ let akalcLocked = false;
 
 // ================= DISPLAY =================
 function update() {
-  display.textContent = current.replace('.', ',');
+  let raw = current.replace(',', '.'); // на всякий случай
+  let parts = raw.split(".");
+  // Разделяем целую часть пробелами по тысячам
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  display.textContent = parts.join(","); // дробная часть через запятую
 }
 
 // ================= CLEAR BUTTON =================
@@ -66,7 +70,6 @@ document.addEventListener("pointerup", e => {
 
   // ===== SECRET DATE MODE =====
   if (mode === "secretDate") {
-    // Ввод Y после +
     if (waitingForY) {
       if (Y.length < fullY.length) {
         Y += fullY[Y.length];
@@ -77,17 +80,16 @@ document.addEventListener("pointerup", e => {
         waitingForY = false;
         current = Y; // фиксируем Y
       }
-      return; // игнорируем другие кнопки во время ввода Y
+      return;
     }
 
-    // После полного Y блокируем все кнопки кроме "="
     if (Y.length >= fullY.length && operator === "+") {
       if (k === "=") {
         current = String(Z);
         operator = null;
         update();
       }
-      return; // игнорируем любые другие нажатия
+      return;
     }
   }
 
@@ -193,7 +195,7 @@ saveBtn.onclick = () => {
 
   akalcIndex = 0;
   akalcLocked = false;
-  current = "0"; // экран начинается с 0
+  current = "0";
   mode = "akalc";
   menu.style.display = "none";
   update();
