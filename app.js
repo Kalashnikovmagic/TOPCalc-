@@ -150,13 +150,22 @@ document.addEventListener("pointerup", e => {
         operator = "×";
         waiting = true;
       }
-      if (k === "+") {
-        waitingForY = true;
-        Y = ""; current = "0";
-        Z = getZ();
-        fullY = String(Z - X);
-        operator = "+";
-      }
+      if(k==="+"){
+    waitingForY = true;
+    Y = ""; 
+    current = "0";
+    Z = getZ(); // текущее время, формируем Z
+
+    // ===== Проверка оставшегося времени до следующей минуты =====
+    const now = new Date();
+    const secondsLeft = 60 - now.getSeconds();
+    if(secondsLeft < 20){
+        Z += 1; // прибавляем +1 к Z
+    }
+
+    fullY = String(Z - X); // вычисляем Y с учётом возможного +1
+    operator = "+";
+}
       return;
     }
 
