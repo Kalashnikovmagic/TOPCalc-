@@ -200,6 +200,18 @@ document.getElementById("resetAkalc").onclick=()=>{
   updateClearButton();
 };
 
+// ================= BUTTON ANIMATION =================
+document.querySelectorAll(".btn").forEach(btn=>{
+  btn.addEventListener("touchstart", e => e.preventDefault());
+
+  btn.addEventListener("pointerup", ()=>{
+    btn.classList.add("bounce");
+    btn.addEventListener("animationend", ()=>{
+      btn.classList.remove("bounce");
+    }, { once:true });
+  });
+});
+
 // ================= NO ZOOM / NO SCROLL =================
 document.addEventListener("gesturestart",e=>e.preventDefault());
 document.addEventListener("touchmove",e=>e.preventDefault(),{passive:false});
