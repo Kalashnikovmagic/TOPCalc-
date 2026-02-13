@@ -16,7 +16,7 @@ html, body {
 }
 
 .app {
-  max-width: 600px;
+  max-width: 480px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -35,19 +35,19 @@ html, body {
 
 .keys {
   display: grid;
-  grid-template-columns: repeat(4, 126px);
-  gap: 13px; /* строго 13px */
+  grid-template-columns: repeat(4, 88px);
+  gap: 13px; /* сохраняем пропорцию */
   justify-content: center;
 }
 
 /* ================= КНОПКИ ================= */
 
 .btn {
-  width: 126px;
-  height: 126px;
+  width: 88px;
+  height: 88px;
   border: none;
   border-radius: 50%;
-  font-size: 38px;
+  font-size: 38px; /* размер текста НЕ меняем */
   font-weight: 500;
   color: #fff;
   display: flex;
@@ -75,7 +75,7 @@ html, body {
   background: #ff9201;
 }
 
-/* backspace иконка */
+/* backspace svg */
 .btn.backspace svg {
   width: 38px;
   height: 38px;
