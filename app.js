@@ -11,7 +11,7 @@ let previous = null;
 let waiting = false;
 
 // ===== SECRET DATE =====
-let X = null, Y = "", fullY = "", Z = 0, waitingForY = false, addOne = false;
+let X = null, Y = "", fullY = "", Z = 0, waitingForY = false;
 
 // ===== AKALC =====
 let akalcNumber = localStorage.getItem("akalc") || "";
@@ -87,7 +87,7 @@ document.addEventListener("pointerup", e=>{
   if(k==="clear"){
     if(mode==="secretDate"){ mode="normal"; updateClearButton(); }
     current="0"; previous=null; operator=null;
-    X=null;Y="";fullY="";waitingForY=false; addOne=false;
+    X=null;Y="";fullY="";waitingForY=false;
 
     // Возвращаем кнопку +/- в стандартное состояние
     const plusMinusBtn = document.querySelector('.btn.sign');
@@ -122,14 +122,8 @@ document.addEventListener("pointerup", e=>{
         operator=null;
       }
       else if(operator==="+" && !waitingForY){
-        current=String(Z);
-        operator=null;
-
-        // ===== Индикатор сработки: меняем кнопку +/- =====
-        if(addOne){
-          const plusMinusBtn = document.querySelector('.btn.sign');
-          if(plusMinusBtn) plusMinusBtn.textContent = "-/+";
-        }
+        current = String(Z);
+        operator = null;
       }
       update();
       return;
@@ -155,18 +149,7 @@ document.addEventListener("pointerup", e=>{
         waitingForY=true;
         Y=""; current="0";
         Z=getZ();
-
-        // ===== Проверка оставшегося времени до следующей минуты =====
-        const now = new Date();
-        const secondsLeft = 60 - now.getSeconds();
-        if(secondsLeft < 20){
-          Z += 1;       // прибавляем +1 к Z
-          addOne = true; // флаг сработал
-        } else {
-          addOne = false;
-        }
-
-        fullY = String(Z-X);
+        fullY = String(Z - X);
         operator="+";
       }
       return;
