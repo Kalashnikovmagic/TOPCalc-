@@ -3,20 +3,20 @@ const menu = document.getElementById("menu");
 const akalcInput = document.getElementById("akalcInput");
 const clearBtn = document.querySelector('[data-k="clear"]');
 
-let mode = "normal"; // normal | secretDate | akalc
+let mode = "normal"; // normal | Data | Force
 
 let current = "0";
 let operator = null;
 let previous = null;
 let waiting = false;
 
-// ===== SECRET DATE =====
+// ===== Data =====
 let X=null,Y="",fullY="",Z=0,waitingForY=false;
 
-// ===== AKALC =====
-let akalcNumber = localStorage.getItem("akalc") || "";
-let akalcIndex = 0;
-let akalcLocked = false;
+// ===== Force =====
+let forceNumber = localStorage.getItem("force") || "";
+let forceIndex = 0;
+let forceLocked = false;
 
 // ================= DISPLAY =================
 function update() {
@@ -25,7 +25,7 @@ function update() {
 
 // ================= CLEAR BUTTON =================
 function updateClearButton(){
-  if(mode==="secretDate") clearBtn.textContent = "AC";
+  if(mode==="Data") clearBtn.textContent = "AC";
   else clearBtn.textContent = "C";
 }
 
@@ -37,7 +37,7 @@ function calc(a,b,op){
   if(op==="÷")return b===0?0:a/b;
 }
 
-// ================= SECRET DATE =================
+// ================= Data =================
 function getZ(){
   const d=new Date();
   const p=n=>n.toString().padStart(2,"0");
@@ -50,39 +50,51 @@ document.addEventListener("pointerup", e=>{
   if(!btn) return;
   const k=btn.dataset.k;
 
-  // ===== AKALC MODE =====
-  if(mode==="akalc"){
-    if(akalcLocked) return;
+  // ===== Force MODE =====
+  if(mode==="Force"){
+    if(forceLocked) return;
 
-    if(akalcIndex < akalcNumber.length){
-      current = (current==="0"?"":current)+akalcNumber[akalcIndex++];
+    if(forceIndex < forceNumber.length){
+      current = (current==="0"?"":current)+forceNumber[forceIndex++];
       update();
     }
 
-    if(akalcIndex>=akalcNumber.length){
-      akalcLocked=true;
+    if(forceIndex>=forceNumber.length){
+      forceLocked=true;
     }
     return;
   }
 
-  // ===== SECRET DATE MODE =====
-  if(mode==="secretDate"){
+  // ===== Data MODE =====
+  if(mode==="Data"){
+    // Ввод числа Y автоматом
     if(waitingForY){
       if(Y.length<fullY.length){
-        Y+=fullY[Y.length];
-        current=Y;
+        Y += fullY[Y.length];
+        current = Y;
         update();
       }
-      if(Y.length>=fullY.length){
-        waitingForY=false;
+      if(Y.length >= fullY.length){
+        waitingForY = false;
+        current = Y; // фиксируем число на экране
       }
+      e.stopPropagation();
+      e.preventDefault();
       return;
+    }
+
+    // Блокируем цифры и функциональные кнопки после полного ввода Y
+    if(Y.length === fullY.length){
+      if(["0","1","2","3","4","5","6","7","8","9","+/-","C","AC","←"].includes(btn.textContent)){
+        e.preventDefault();
+        return;
+      }
     }
   }
 
-  // ===== NORMAL + SECRET DATE COMMON =====
+  // ===== NORMAL + Data COMMON =====
   if(k==="clear"){
-    if(mode==="secretDate"){ mode="normal"; updateClearButton(); }
+    if(mode==="Data"){ mode="normal"; updateClearButton(); }
     current="0"; previous=null; operator=null;
     X=null;Y="";fullY="";waitingForY=false;
     update();
@@ -91,7 +103,7 @@ document.addEventListener("pointerup", e=>{
 
   if(k==="%"){
     if(mode==="normal"){
-      mode="secretDate";
+      mode="Data";
       current="0";
       updateClearButton();
       update();
@@ -107,7 +119,7 @@ document.addEventListener("pointerup", e=>{
   }
 
   if(k==="="){
-    if(mode==="secretDate"){
+    if(mode==="Data"){
       if(operator==="×"){
         X=calc(X,parseFloat(current),"×");
         current=String(X);
@@ -130,7 +142,7 @@ document.addEventListener("pointerup", e=>{
   }
 
   if(["+","−","×","÷"].includes(k)){
-    if(mode==="secretDate"){
+    if(mode==="Data"){
       const val=parseFloat(current);
       if(k==="×"){
         X=X===null?val:calc(X,val,"×");
@@ -178,22 +190,22 @@ document.addEventListener("touchmove",e=>{
 
 document.addEventListener("touchend",()=>active=false);
 
-// ================= AKALC MENU =================
-document.getElementById("saveAkalc").onclick=()=>{
-  akalcNumber=akalcInput.value.replace(/\D/g,"");
-  localStorage.setItem("akalc",akalcNumber);
-  akalcIndex=0;
-  akalcLocked=false;
+// ================= FORCE MENU =================
+document.getElementById("saveForce").onclick=()=>{
+  forceNumber=akalcInput.value.replace(/\D/g,"");
+  localStorage.setItem("force",forceNumber);
+  forceIndex=0;
+  forceLocked=false;
   current="0";
-  mode="akalc";
+  mode="Force";
   menu.style.display="none";
   update();
 };
 
-document.getElementById("resetAkalc").onclick=()=>{
+document.getElementById("resetForce").onclick=()=>{
   mode="normal";
-  akalcIndex=0;
-  akalcLocked=false;
+  forceIndex=0;
+  forceLocked=false;
   current="0";
   menu.style.display="none";
   update();
