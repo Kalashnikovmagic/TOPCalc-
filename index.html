@@ -63,17 +63,31 @@
     </div>
   </div>
 
-  <!-- FORCE SECRET MENU -->
-  <div class="menu" id="menu">
-    <div class="menuCard">
-      <input id="akalcInput" inputmode="numeric" placeholder="Напиши число здесь 😉" />
-      <div class="menuBtns">
-        <button class="menuBtn resetBtn" id="resetAkalc">Сбросить</button>
-        <button class="menuBtn saveBtn" id="saveAkalc">Сохранить</button>
-      </div>
+ <!-- FORCE SECRET MENU -->
+<div class="menu" id="menu">
+  <div class="menuCard">
+    <input id="akalcInput" inputmode="numeric" placeholder="Напиши число здесь 😉" />
+
+    <div class="menuBtns" style="display:flex; gap:10px;">
+      <!-- Левая серая кнопка -->
+      <button class="menuBtn resetBtn" id="resetAkalc" style="
+        flex:1;
+        background:#c7c7cc; /* серый в стиле iOS */
+        color:#000;
+        font-size:18px;
+        border-radius:12px;
+        padding:10px 0;
+      ">Сбросить</button>
+
+      <!-- Правая оранжевая кнопка -->
+      <button class="menuBtn saveBtn" id="saveAkalc" style="
+        flex:1;
+        background:#ff9500; /* оранжевый в стиле iOS */
+        color:#fff;
+        font-size:18px;
+        border-radius:12px;
+        padding:10px 0;
+      ">Сохранить</button>
     </div>
   </div>
-
-  <script src="app.js"></script>
-</body>
-</html>
+</div>
